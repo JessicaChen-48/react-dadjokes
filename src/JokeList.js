@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Joke from "./Joke";
 import "./JokeList.css";
-
+import useLocalStorage from './useLocalStorage';
 
 /** List of jokes. */
 
 function JokeList({numJokesToGet}) {
 
-  const [jokes, setJokes] = useState([]);
+  // const [jokes, setJokes] = useState([]);
+  const [jokes, setJokes] = useLocalStorage('jokes', []);
   const [isLoading, setIsLoading] = useState(true)
 
 
@@ -16,9 +17,8 @@ function JokeList({numJokesToGet}) {
 
 
   useEffect(() => {
-    /* retrieve jokes from API */
-
-    if (!jokes.length) getJokes()
+    // 
+    !jokes.length ? getJokes() : setIsLoading(false);
   }, []);
 
 
